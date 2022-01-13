@@ -31,14 +31,12 @@ src_unpack(){
 
 src_install(){
 	insinto /opt/${MY_PN}
-	doins -r usr/share/${MY_PN}/* || die
-	if [[ "${PV}" == *beta* ]]; then
-		fperms +x "/opt/${MY_PN}/MongoDB Compass Beta"
-		dosym "/opt/${MY_PN}/MongoDB Compass Beta" /usr/bin/${MY_PN}
-	else
-		fperms +x "/opt/${MY_PN}/MongoDB Compass"
-		dosym "/opt/${MY_PN}/MongoDB Compass" /usr/bin/${MY_PN}
-	fi
+	doins -r usr/share/* || die
+	doins -r usr/lib/${MY_PN} || die
+	dosym "/opt/${MY_PN}/${MY_PN}/MongoDB Compass" /usr/bin/${MY_PN}
+	fperms +x "/opt/${MY_PN}/${MY_PN}/MongoDB Compass"
+
+
 	newicon usr/share/pixmaps/${MY_PN}.png ${MY_PN}.png
 	domenu usr/share/applications/${MY_PN}.desktop
 }
